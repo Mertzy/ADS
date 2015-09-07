@@ -31,28 +31,6 @@ class GoToCommand:
         return '<Command x="' + str(self.x) + '" y="' + str(self.y) + \
                '" width="' + str(self.width) \
                + '" color="' + self.color + '">GoTo</Command>' 
-
-class SquareCommand:
-    def _init_(self, width=1,color="black"):
-        self.width = width
-        self.color = color
-
-    def draw(self,turtle):
-        turtle.width(self.width)
-        turtle.pencolor(self.color)
-        turtle.forward(100)
-        turtle.right(90)
-        turtle.forward(100)
-        turtle.right(90)
-        turtle.forward(100)
-        turtle.right(90)
-        turtle.forward(100)
-        turtle.right(90)
-
-
-    def __str__(self):
-        return '<Command radius="' + str(self.radius) + '" width="' + \
-               str(self.width) + '" color="' + self.color + '">Square</Command>'
         
 class CircleCommand:
     def __init__(self,radius, width=1,color="black"):
@@ -198,11 +176,6 @@ class DrawingApplication(tkinter.Frame):
                     width = float(attr["width"].value)
                     color = attr["color"].value.strip()
                     cmd = GoToCommand(x,y,width,color)
-
-                elif command == "Square":
-                    width = float(attr["width"].value)
-                    color = attr["color"].value.strip()
-                    cmd = SquareCommand(width,color)
         
                 elif command == "Circle":
                     radius = float(attr["radius"].value)
@@ -347,19 +320,7 @@ class DrawingApplication(tkinter.Frame):
         radiusEntry.pack()
         
         # A button widget calls an event handler when it is pressed. The circleHandler
-        # function below is the event handler when the Draw Circle button is pressed.
-
-        def squareHandler():
-            cmd = CircleCommand(float(widthSize.get()), penColor.get())
-            cmd.draw(theTurtle)
-            self.graphicsCommands.append(cmd)
-
-            screen.update()
-            screen.listen()
-
-        squareButton = tkinter.Button(sideBar, text = "Draw Square", command=squareHandler)
-        squareButton.pack(fill=tkinter.BOTH)
-
+        # function below is the event handler when the Draw Circle button is pressed. 
         def circleHandler():
             # When drawing, a command is created and then the command is drawn by calling
             # the draw method. Adding the command to the graphicsCommands sequence means the
